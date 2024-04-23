@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/OOD_Music_Organizer_v2.iml" filepath="$PROJECT_DIR$/OOD_Music_Organizer_v2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/OOD_MusicOrganizer.iml" filepath="$PROJECT_DIR$/OOD_MusicOrganizer.iml" />
     </modules>
   </component>
 </project>
