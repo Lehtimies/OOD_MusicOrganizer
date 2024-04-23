@@ -23,7 +23,7 @@ public class MusicOrganizerController {
 	public MusicOrganizerController() {
 
 		// TODO: Create the root album for all sound clips
-		root = new Album("All Sound Clips");
+		root = new Album();
 
 		// Create the blocking queue
 		queue = new SoundClipBlockingQueue();
@@ -63,8 +63,8 @@ public class MusicOrganizerController {
 		// TODO: Add your code here
 		String albumName = view.promptForAlbumName();
 		if(albumName != null) {
-			Album newAlbum = new Album(albumName);
 			Album parentAlbum = view.getSelectedAlbum();
+			Album newAlbum = new Album(albumName, parentAlbum);
 			if (parentAlbum != null) {
 				parentAlbum.addAlbum(newAlbum);
 				view.onAlbumAdded(newAlbum);

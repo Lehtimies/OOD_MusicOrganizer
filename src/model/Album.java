@@ -5,40 +5,42 @@ import java.util.List;
 import java.util.Set;
 
 public class Album {
-    private Album parentAlbum; // Final värde för parentAlbum, är final eftersom parent-albumet inte ska kunna ändras
-    private String name; // String för albumets namn
-    private Set<SoundClip> SoundClips; // Lista för soundclips
-    private List<Album> subAlbums; // Lista för sub-albumen
+    private Album parentAlbum;
+    private String albumName;
+    private Set<SoundClip> SoundClips;
+    private List<Album> subAlbums;
 
-    // Constructor som skapar rot-albumet med namnet "All Sound Clips"
-    /**OBS! ANVÄND ENDAST FÖR ATT SKAPA ROT-ALBUMET**/
-    public Album(String albumName) {
-        this(albumName, null);
+    /**Constructor that creates the root album |
+     * USE ONLY FOR ROOT ALBUM*/
+    public Album() {
+        this("All Sound Clips", null);
     }
 
-    // Constructor som skapar sub-album
+    /** Constructor that creates a new album
+     * @param albumName The name of the new album
+     * @param parent The parent album */
     public Album(String albumName, Album parent) {
-        name = albumName;
+        this.albumName = albumName;
         parentAlbum = parent;
         subAlbums = new ArrayList<>();
         SoundClips = new HashSet<>();
-
-        /* Kollar om det implementeras senare
-        // lägger till sub-albumet i parentAlbums sub-albums lista
-        if (parentAlbum != null) {
-            parentAlbum.getSubAlbums().add(this);
-        }*/
+    }
+    /** Adds a subAlbum to the album
+     * @param newAlbum The album to be added
+     * */
+    public void addAlbum(Album newAlbum) {
+        subAlbums.add(newAlbum);
+        newAlbum.parentAlbum = this;
     }
 
-    public void addAlbum(Album a) {
-        subAlbums.add(a);
-        a.parentAlbum = this;
+    /** Removes an album
+     * @param album The album to be removed*/
+    public void removeAlbum(Album album) {
+        removeAlbums(Set.of(album));
     }
 
-    public void removeAlbum(Album a) {
-        removeAlbums(Set.of(a));
-    }
-
+    /** Removes one or more albums
+     * @param albums The albums to be removed */
     public void removeAlbums(Set<Album> albums) {
         subAlbums.removeAll(albums);
         for (Album a : albums) {
@@ -46,10 +48,14 @@ public class Album {
         }
     }
 
-    public void addSoundClip(SoundClip s) {
-        addSoundClips(Set.of(s));
+    /** Adds a SoundClip to the album
+     * @param clip The SoundClip to be added */
+    public void addSoundClip(SoundClip clip) {
+        addSoundClips(Set.of(clip));
     }
 
+    /** Adds one or more SoundClips to the album
+     * @param clips The SoundClips to be added */
     public void addSoundClips(Set<SoundClip> clips) {
         SoundClips.addAll(clips);
         if (parentAlbum != null) {
@@ -57,10 +63,14 @@ public class Album {
         }
     }
 
-    public void removeSoundClip(SoundClip s) {
-        removeSoundClips(Set.of(s));
+    /** Removes a SoundClip from the album
+     * @param clip The SoundClip to be removed */
+    public void removeSoundClip(SoundClip clip) {
+        removeSoundClips(Set.of(clip));
     }
 
+    /** Removes one or more SoundClips from the album
+     * @param clips The SoundClips to be removed */
     public void removeSoundClips(Set<SoundClip> clips) {
         SoundClips.removeAll(clips);
         for (Album a : subAlbums) {
@@ -68,9 +78,9 @@ public class Album {
         }
     }
 
-    /** @return - albumets namn */
+    /** @return - The albumName of the album */
     public String toString() {
-        return name;
+        return albumName;
     }
 
     /** @return - parentAlbum */
@@ -79,12 +89,12 @@ public class Album {
     }
 
 
-    /** @return - listan av SoundClips */
+    /** @return - Set of SoundClips */
     public Set<SoundClip> getSoundClips() {
         return SoundClips;
     }
 
-    /** @return - listan av sub-album */
+    /** @return - List of sub-albums */
     public List<Album> getSubAlbums() {
         return subAlbums;
     }
